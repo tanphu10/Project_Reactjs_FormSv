@@ -1,9 +1,9 @@
 import React from "react";
 import ProductReact from "./ProductReact";
 import { connect } from "react-redux";
+const ReactForm = (props) => {
+  console.log(props);
 
-const ReactForm = () => {
-  // console.log(this.props);
   return (
     <div>
       <h1 className="text-center  font-bold text-zinc-950  text-2xl">
@@ -13,61 +13,53 @@ const ReactForm = () => {
       <div className="container mx-auto px-10">
         <ProductReact />
         <div className="max-w-screen-xl mx-auto px-10 ">
-          <table className="inline-table " cellPadding={20}>
-            <thead className="bg-stone-800 text-white">
-              <th>Mã Sinh Viên</th>
-              <th>Họ Tên</th>
-              <th>Số Điện Thoại</th>
-              <th>Email</th>
-              <th>Hành Động</th>
-            </thead>
-            <tbody>
-              <th>Mã Sinh Viên 899398</th>
-              <th>phantanphu899398</th>
-              <th>Số Điện Thoại</th>
-              <th>phantanphu899398@gmail.com</th>
-              <th>
-                <button className="bg-red-500">
-                  <i class="fa-solid fa-trash"></i>
-                </button>
-                <button className="bg-yellow-300">
-                  <i class="fa-solid fa-pen-nib"></i>
-                </button>
-              </th>
-            </tbody>
-          </table>
-          {/* <table className="table-auto">
-            <thead className=" bg-black text-white px-10">
-              <tr>
-                <th>Song</th>
-                <th>Artist</th>
-                <th>Year</th>
-                <th>Song</th>
-                <th>Artist</th>
-                <th>Year</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>The Sliding Mr. Bones (Next Stop, Pottersville)</td>
-                <td>Malcolm Lockyer</td>
-                <td>1961</td>
-              </tr>
-              <tr>
-                <td>Witchy Woman</td>
-                <td>The Eagles</td>
-                <td>1972</td>
-              </tr>
-              <tr>
-                <td>Shining Star</td>
-                <td>Earth, Wind, and Fire</td>
-                <td>1975</td>
-              </tr>
-            </tbody>
-          </table> */}
+          <div className="overflow-y-scroll" style={{ maxHeight: "200px" }}>
+            <table className="inline-table " cellPadding={20}>
+              <thead className="bg-stone-800 text-white ">
+                <th>Mã Sinh Viên</th>
+                <th>Họ Tên</th>
+                <th>Email</th>
+                <th>Số Điện Thoại</th>
+                <th>Hành Động</th>
+              </thead>
+
+              <tbody>
+                {props.sinhVienItem.map((item, index) => {
+                  const { maSoSv, hoTenSv, emailSv, soDienThoaiSv } = item;
+                  return (
+                    <tr key={index}>
+                      <td>{maSoSv}</td>
+                      <td>{hoTenSv}</td>
+                      <td>{emailSv}</td>
+                      <td>{soDienThoaiSv}</td>
+                      <td>
+                        <button
+                          className="bg-red-700 hover:bg-red-800 text-white focus:outline-none px-5 py-2.5 mx-5 border rounded-md"
+                          onClick={() => {
+                            props.deleleItem(item);
+                          }}
+                        >
+                          <i class="fa-solid fa-trash"></i>
+                        </button>
+                        <button
+                          className="text-white bg-green-700 hover:bg-green-800 focus:outline-none rounded-md px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 mx-5 "
+                          onClick={(item) => {
+                            props.infoItem(item);
+                          }}
+                        >
+                          <i class="fa-solid fa-pen-nib"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
+    // </div>
   );
 };
 // export default ReactForm;
@@ -76,4 +68,22 @@ const mapStateToProps = (state) => {
     sinhVienItem: state.sinhVienItem.arrSinhVien,
   };
 };
-export default connect(mapStateToProps)(ReactForm) ;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deleleItem: (item) => {
+      const action = {
+        type: "DELETE",
+        payload: item,
+      };
+      dispatch(action);
+    },
+    infoItem: (item) => {
+      const action = {
+        type: "INFO",
+        payload: item,
+      };
+      dispatch(action);
+    },
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(ReactForm);
