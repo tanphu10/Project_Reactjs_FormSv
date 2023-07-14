@@ -3,14 +3,10 @@ const initialState = {
 };
 
 export const listReducer = (state = initialState, action) => {
-//   switch (action.type) {
-//     case "ADDTOARR":
-//       console.log(action);
-//       break;
-
-//     default:
-//       break;
-//   }
-
-  return state;
+  if (action.type == "ADDTOARR") {
+    const newArrSinhVien = [...state.arrSinhVien];
+    console.log(action);
+    newArrSinhVien.push({ ...action.payload });
+    return { ...state, arrSinhVien: [...newArrSinhVien] };
+  }
 };

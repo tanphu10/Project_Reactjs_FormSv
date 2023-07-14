@@ -18,7 +18,7 @@ const ProductReact = () => {
   console.log(formik.onSubmit());
   // console.log(formik);
   const { handleChange, handleSubmit } = formik;
-  // console.log(this.props);
+  console.log(this.props);
   return (
     <div className="max-w-screen-xl mx-auto pt-10 px-10">
       <form className="bg-amber-300 p-5 rounded-xl" onSubmit={handleSubmit}>
@@ -92,7 +92,7 @@ const ProductReact = () => {
             type="submit"
             className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 mt-3"
             onClick={() => {
-              // this.onSubmit.addToArr(values);
+              this.props.addToArr(values);
             }}
           >
             Thêm Sinh Viên
@@ -110,13 +110,13 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    addToArr: (item) => {
+    addToArr: (values) => {
       const action = {
         type: "ADDTOARR",
-        payload: item,
+        payload: values,
       };
       dispatch(action);
     },
   };
 };
-export default connect(mapDispatchToProps)(ProductReact);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductReact);

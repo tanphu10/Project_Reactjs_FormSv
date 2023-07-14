@@ -1,9 +1,9 @@
 import React from "react";
 import ProductReact from "./ProductReact";
-// import { connect } from "react-redux";
+import { connect } from "react-redux";
 
 const ReactForm = () => {
-  console.log(this.props);
+  // console.log(this.props);
   return (
     <div>
       <h1 className="text-center  font-bold text-zinc-950  text-2xl">
@@ -70,10 +70,10 @@ const ReactForm = () => {
     </div>
   );
 };
-export default ReactForm;
-// const mapStateToProps = (state) => {
-//   return {
-//     sinhVienItem: state.sinhVienItem.arrSinhVien,
-//   };
-// };
-// export default connect(mapStateToProps)(ReactForm) ;
+// export default ReactForm;
+const mapStateToProps = (state) => {
+  return {
+    sinhVienItem: state.sinhVienItem.arrSinhVien,
+  };
+};
+export default connect(mapStateToProps)(ReactForm) ;
