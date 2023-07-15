@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "antd";
 import { NavLink } from "react-router-dom";
-import { useFormik } from "formik";
-import { connect } from "react-redux";
+import { useFormik, Form } from "formik";
+import { connect, useSelector } from "react-redux";
 import * as yup from "yup";
 const ProductReact = (props) => {
+  // const { item } = useSelector((state) => {
+  //   state.item;
+  // });
   const formik = useFormik({
     initialValues: {
       maSoSv: "",
@@ -14,6 +17,7 @@ const ProductReact = (props) => {
     },
     onSubmit: (values) => {
       props.addToArr(values);
+      formik.resetForm();
     },
     validationSchema: yup.object({
       maSoSv: yup
@@ -36,6 +40,14 @@ const ProductReact = (props) => {
   // console.log(formik.onSubmit());
   // console.log(formik);
   const { handleChange, handleSubmit } = formik;
+  // useEffect(
+  //   (item) => {
+  //     if (item) {
+  //       formik.setValues(item);
+  //     }
+  //   },
+  //   [item]
+  // );
   return (
     <div className="max-w-screen-xl mx-auto pt-10 px-10">
       <form className="bg-amber-300 p-5 rounded-xl" onSubmit={handleSubmit}>
@@ -132,11 +144,13 @@ const ProductReact = (props) => {
           <button
             type="submit"
             className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 mx-5 "
+
+            // onClick={resetForm}
           >
             Thêm Sinh Viên
           </button>
           <button
-            type="submit"
+            type="button"
             className="text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800 mt-3"
           >
             Update

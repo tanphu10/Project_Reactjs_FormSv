@@ -1,5 +1,6 @@
 const initialState = {
   arrSinhVien: [],
+  student: {},
 };
 
 export const listReducer = (state = initialState, action) => {
@@ -23,14 +24,16 @@ export const listReducer = (state = initialState, action) => {
       }
       return { ...state, arrSinhVien: [...newArrSinhVien] };
     }
-
     case "INFO": {
       const newArrSinhVien = [...state.arrSinhVien];
-      let item = newArrSinhVien.find(
+      let itemStudent = newArrSinhVien.find(
         (item) => item.maSoSv == action.payload.maSoSv,
+        console.log(item.maSoSv)
       );
-      console.log("index")
-      
+      // if (item) {
+      //   return { ...state, student: [...item] };
+      // }
+      console.log(itemStudent);
     }
     default:
       return { ...state };
