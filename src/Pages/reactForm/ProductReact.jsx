@@ -18,6 +18,7 @@ const ProductReact = (props) => {
     onSubmit: (values) => {
       props.addToArr(values);
       formik.resetForm();
+      props.updateItem(values);
     },
     validationSchema: yup.object({
       maSoSv: yup
@@ -47,11 +48,16 @@ const ProductReact = (props) => {
   }, [props.newStudent]);
   // console.log(props);
   const updateStudent = () => {
-    props.sinhVienItem.map((item, index) => {
-      props.updateItem(item);
-    });
-    // console.log(id);
-    // formik.resetForm();
+    props.updateItem(formik.values);
+    // props.sinhVienItem.map((item, index) => {
+    //   const student = props.updateItem(item);
+    //   if (student) {
+    //     return item.maSoSv;
+    //   }
+    // });
+
+    //   // console.log(id);
+    //   // formik.resetForm();s
   };
 
   return (

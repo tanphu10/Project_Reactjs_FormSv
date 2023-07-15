@@ -14,7 +14,7 @@ const ReactForm = (props) => {
         <ProductReact />
         <div className="max-w-screen-xl mx-auto px-10 ">
           <div className="overflow-y-scroll" style={{ maxHeight: "400px" }}>
-            <table className="inline-table " cellPadding={20}>
+            <table className="w-full " cellPadding={20}>
               <thead className="bg-stone-800 text-white ">
                 <th>Mã Sinh Viên</th>
                 <th>Họ Tên</th>
