@@ -40,14 +40,20 @@ const ProductReact = (props) => {
   // console.log(formik.onSubmit());
   // console.log(formik);
   const { handleChange, handleSubmit } = formik;
-  // useEffect(
-  //   (item) => {
-  //     if (item) {
-  //       formik.setValues(item);
-  //     }
-  //   },
-  //   [item]
-  // );
+  useEffect(() => {
+    if (props.newStudent) {
+      formik.setValues(props.newStudent);
+    }
+  }, [props.newStudent]);
+  // console.log(props);
+  const updateStudent = () => {
+    props.sinhVienItem.map((item, index) => {
+      props.updateItem(item);
+    });
+    // console.log(id);
+    // formik.resetForm();
+  };
+
   return (
     <div className="max-w-screen-xl mx-auto pt-10 px-10">
       <form className="bg-amber-300 p-5 rounded-xl" onSubmit={handleSubmit}>
@@ -144,14 +150,13 @@ const ProductReact = (props) => {
           <button
             type="submit"
             className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 mx-5 "
-
-            // onClick={resetForm}
           >
             Thêm Sinh Viên
           </button>
           <button
             type="button"
             className="text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800 mt-3"
+            onClick={updateStudent}
           >
             Update
           </button>
@@ -163,7 +168,8 @@ const ProductReact = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    sinhVienItem: state.sinhVienItem,
+    sinhVienItem: state.sinhVienItem.arrSinhVien,
+    newStudent: state.sinhVienItem.student,
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -172,6 +178,13 @@ const mapDispatchToProps = (dispatch) => {
       const action = {
         type: "ADDTOARR",
         payload: values,
+      };
+      dispatch(action);
+    },
+    updateItem: (item) => {
+      const action = {
+        type: "UPDATE",
+        payload: item,
       };
       dispatch(action);
     },

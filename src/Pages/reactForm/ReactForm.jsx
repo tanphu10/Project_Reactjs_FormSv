@@ -2,7 +2,7 @@ import React from "react";
 import ProductReact from "./ProductReact";
 import { connect } from "react-redux";
 const ReactForm = (props) => {
-  console.log(props);
+  // console.log(props);
 
   return (
     <div>
@@ -13,7 +13,7 @@ const ReactForm = (props) => {
       <div className="container mx-auto px-10">
         <ProductReact />
         <div className="max-w-screen-xl mx-auto px-10 ">
-          <div className="overflow-y-scroll" style={{ maxHeight: "200px" }}>
+          <div className="overflow-y-scroll" style={{ maxHeight: "400px" }}>
             <table className="inline-table " cellPadding={20}>
               <thead className="bg-stone-800 text-white ">
                 <th>Mã Sinh Viên</th>
@@ -43,8 +43,9 @@ const ReactForm = (props) => {
                         </button>
                         <button
                           className="text-white bg-green-700 hover:bg-green-800 focus:outline-none rounded-md px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 mx-5 "
-                          onClick={(item) => {
-                            props.infoItem(item);
+                          onClick={() => {
+                            props.infoItem(maSoSv);
+                            // console.log(maSoSv);
                           }}
                         >
                           <i class="fa-solid fa-pen-nib"></i>
@@ -66,6 +67,7 @@ const ReactForm = (props) => {
 const mapStateToProps = (state) => {
   return {
     sinhVienItem: state.sinhVienItem.arrSinhVien,
+    newStudent: state.sinhVienItem.student,
   };
 };
 const mapDispatchToProps = (dispatch) => {

@@ -25,15 +25,29 @@ export const listReducer = (state = initialState, action) => {
       return { ...state, arrSinhVien: [...newArrSinhVien] };
     }
     case "INFO": {
+      // const newStudent = { ...state.student };
       const newArrSinhVien = [...state.arrSinhVien];
       let itemStudent = newArrSinhVien.find(
-        (item) => item.maSoSv == action.payload.maSoSv,
-        console.log(item.maSoSv)
+        (item) => item.maSoSv == action.payload
       );
-      // if (item) {
-      //   return { ...state, student: [...item] };
-      // }
+      // console.log("itemstudent: ", itemStudent);
+      if (itemStudent) {
+        return { ...state, student: { ...itemStudent } };
+      }
       console.log(itemStudent);
+    }
+    case "UPDATE": {
+      const newArrSinhVien = [...state.arrSinhVien];
+      let index = newArrSinhVien.findIndex(
+        (item) => item.maSoSv == action.payload.maSoSv
+        // console.log(item.maSoSv)
+        // console.log(action.payload.maSoSv)
+      );
+      console.log(index);
+      if (index != -1) {
+        newArrSinhVien[index] = action.payload;
+      }
+      return { ...state, arrSinhVien: [...newArrSinhVien] };
     }
     default:
       return { ...state };
